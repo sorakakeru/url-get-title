@@ -1,0 +1,180 @@
+@charset "utf-8";
+
+/**
+  * reset
+  */
+
+body, h1, p, dl, dt, dd, form, input, button {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+/**
+  * base
+  */
+
+:root {
+  --baseColor: #1a1a19;
+  --primaryColor: #6fa4af;
+  --bgColor: #fefefe;
+  --whiteColor: #fefefe;
+  --grayColor: #999;
+  --grayBgColor: #eee;
+  --attentionColor: #d97d55;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--baseColor);
+  font-size: 1rem;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  line-height: 1.6;
+  background-color: var(--bgColor);
+}
+
+hr {
+  margin-block: 2em;
+  border: none;
+  border-top: 1px solid var(--baseColor);
+  height: 0;
+}
+
+
+/**
+  * contents
+  */
+
+.wrapper {
+  margin-inline: auto;
+  padding-block: 3em;
+  width: min(90%, 600px);
+}
+
+h1 {
+  margin-bottom: 2em;
+  font-size: 1.5em;
+  font-weight: 700;
+  text-align: center;
+}
+
+dd + dt {
+  margin-top: 1.5em;
+}
+
+dd:has(input) {
+  display: flex;
+  align-items: center;
+}
+
+dd input {
+  width: calc(100% - 0.5em - 80px);
+}
+
+dd button {
+  margin-left: 0.5em;
+}
+
+.generate_area {
+  padding: 1em;
+  background-color: var(--grayBgColor);
+  border-radius: 5px;
+  position: relative;
+}
+
+.generate_area p {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.generate_area p::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+.generate_area p::-webkit-scrollbar-track {
+  background-color: var(--grayColor);
+  border-radius: 5px;
+}
+
+.generate_area p::-webkit-scrollbar-thumb {
+  background-color: var(--baseColor);
+  border-radius: 5px;
+}
+
+.generate_area p::-webkit-scrollbar-thumb:hover {
+  opacity: 0.85;
+}
+
+.generate_area code {
+  font-family: inherit;
+}
+
+.generate_area button {
+  font-size: 0.85em;
+  width: auto;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+
+p.error {
+  color: var(--attentionColor);
+}
+
+.form_area p.error {
+  margin-top: 0.5em;
+  font-weight: 700;
+}
+
+
+/**
+  * form
+  */
+
+input, button {
+  color: var(--baseColor);
+  font-size: 1rem;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  line-height: 1.6;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  appearance: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--grayColor);
+}
+
+input {
+  padding: 0.25em;
+  background-color: var(--grayBgColor);
+  border-radius: 5px;
+  width: 100%;
+}
+
+button {
+  padding: 0.25em 0.75em;
+  color: var(--whiteColor);
+  text-align: center;
+  background-color: var(--baseColor);
+  border-radius: 5px;
+  width: 80px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+button:hover {
+  background-color: var(--primaryColor);
+}
