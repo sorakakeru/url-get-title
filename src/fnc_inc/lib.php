@@ -28,7 +28,7 @@
   if (isset($_POST['send'])) {
 
     //token確認
-    if(!validate_token($_POST['token'])) {
+    if (!validate_token($_POST['token'])) {
       $e_msg = '不正な操作を検出したため動作を停止しました';
     } else {
 
