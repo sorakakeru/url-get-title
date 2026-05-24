@@ -7,12 +7,12 @@
  * https://github.com/sorakakeru/url-get-title/blob/main/LICENSE
  */
 
-const form = document.querySelector('.form_area form');
-const checkInput = document.querySelector('.form_area input[name="url"]');
-
 /**
  * 入力フォームバリデーションチェック
  */
+
+const form = document.querySelector('.form_area form');
+const checkInput = document.querySelector('.form_area input[name="url"]');
 
 form.addEventListener('submit', (e) => {
   const eText = document.querySelector('.form_area .error');
