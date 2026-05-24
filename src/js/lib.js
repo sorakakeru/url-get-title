@@ -9,8 +9,6 @@
 
 const form = document.querySelector('.form_area form');
 const checkInput = document.querySelector('.form_area input[name="url"]');
-const resultArea = document.querySelector('.result_area');
-
 
 /**
  * 入力フォームバリデーションチェック
@@ -20,7 +18,8 @@ form.addEventListener('submit', (e) => {
   const eText = document.querySelector('.form_area .error');
   if (eText) eText.remove();
 
-  resultArea.remove();
+  const currentResultArea = document.querySelector('.result_area');
+  if (currentResultArea) currentResultArea.remove();
 
   let isValidUrl = true;
   try {
@@ -43,34 +42,38 @@ form.addEventListener('submit', (e) => {
 /**
  * コピーボタン
  */
-const generateArea = resultArea.querySelectorAll('dd');
 
-generateArea.forEach(function(elm) {
-  const btn = elm.querySelector('button');
-  const copyTarget = elm.querySelector('p');
-  btn.addEventListener('click', copyTxt);
+const resultArea = document.querySelector('.result_area');
 
-  function copyTxt() {
-    const copyText = getTextWithBrNewline(copyTarget);
-    (navigator.clipboard && window.isSecureContext)
-      ? navigator.clipboard.writeText(copyText).then(success, faild)
-      : alert('コピーはhttps接続環境でのみ有効です');
-  }
+if (resultArea) {
+  const generateArea = resultArea.querySelectorAll('dd');
+  generateArea.forEach(function(elm) {
+    const btn = elm.querySelector('button');
+    const copyTarget = elm.querySelector('p');
+    btn.addEventListener('click', copyTxt);
 
-  function getTextWithBrNewline(target) {
-    if (!target) return '';
+    function copyTxt() {
+      const copyText = getTextWithBrNewline(copyTarget);
+      (navigator.clipboard && window.isSecureContext)
+        ? navigator.clipboard.writeText(copyText).then(success, faild)
+        : alert('コピーはhttps接続環境でのみ有効です');
+    }
 
-    const clone = target.cloneNode(true);
-    clone.querySelectorAll('br').forEach(function(br) {
-      br.replaceWith('\n');
-    });
-    return clone.textContent;
-  }
+    function getTextWithBrNewline(target) {
+      if (!target) return '';
 
-  function success() {
-    alert('コピーしたよ！');
-  }
-  function faild() {
-    alert('コピーできなかった、ごめん！');
-  }
-});
+      const clone = target.cloneNode(true);
+      clone.querySelectorAll('br').forEach(function(br) {
+        br.replaceWith('\n');
+      });
+      return clone.textContent;
+    }
+
+    function success() {
+      alert('コピーしたよ！');
+    }
+    function faild() {
+      alert('コピーできなかった、ごめん！');
+    }
+  });
+}
