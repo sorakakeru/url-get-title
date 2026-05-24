@@ -71,7 +71,6 @@ function writeAccessBlockLog($reason, $targetUrl = '', $extra = []) {
     'time' => date('c'),
     'reason' => (string)$reason,
     'target_url' => (string)$targetUrl,
-    'client_ip' => getClientIpAddress(),
     'method' => (string)($_SERVER['REQUEST_METHOD'] ?? ''),
     'user_agent' => (string)($_SERVER['HTTP_USER_AGENT'] ?? ''),
     'request_uri' => (string)($_SERVER['REQUEST_URI'] ?? ''),
