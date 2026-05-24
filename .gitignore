@@ -1,4 +1,5 @@
 .DS_Store
 
+.htaccess
 /src/_logs/
 /src/_modules/vendor/
