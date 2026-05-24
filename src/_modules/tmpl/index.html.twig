@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="pinterest" content="nopin">
+  <title>url-get-title</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/lib.js" defer></script>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <h1>url-get-title</h1>
+
+  <div class="form_area">
+    {% if error %}
+      <ul class="error">
+        {% for msg in error %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <form action="" method="post">
+      <input type="hidden" name="token" value="{{ token }}">
+      <p><input type="text" name="url" placeholder="https://"></p>
+      <div class="btn_area">
+        <button type="submit" name="send">取得</button>
+      </div>
+    </form>
+  </div>
+
+  {% if sendSuccess %}
+
+    <div class="result_area">
+      <p>取得URL：<br><a href="{{ setURL }}" target="_blank" rel="noreferrer">{{ setURL }}</a></p>
+      <dl>
+        <dt>タイトル文言＋URL（タイトル文言とURLの間に改行あり）</dt>
+        <dd>
+          <p>{{ setTitle }}<br>{{ setURL }}</p>
+          <button type="button" class="set_btn">copy</button>
+        </dd>
+        <dt>リンク（Markdown形式）</dt>
+        <dd>
+          <p>[{{ setTitle }}]({{ setURL }})</p>
+          <button type="button" class="set_btn">copy</button>
+        </dd>
+        <dt>リンク（HTML形式）</dt>
+        <dd>
+          <p>&lt;a href="{{ setURL }}"&gt;{{ setTitle }}&lt;/a&gt;</p>
+          <button type="button" class="set_btn">copy</button>
+        </dd>
+        <dt>リンクタイトル文言のみ</dt>
+        <dd>
+          <p>{{ setTitle }}</p>
+          <button type="button" class="set_btn">copy</button>
+        </dd>
+        <dt>URLのみ</dt>
+        <dd>
+          <p>{{ setURL }}</p>
+          <button type="button" class="set_btn">copy</button>
+        </dd>
+      </dl>
+    </div>
+
+  {% endif %}
+
+</div>
+
+</body>
+</html>
