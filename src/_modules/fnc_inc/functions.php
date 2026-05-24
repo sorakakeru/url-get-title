@@ -66,7 +66,7 @@ function writeAccessBlockLog($reason, $targetUrl = '', $extra = []) {
   $logDir = __DIR__. '/../../_logs';
   if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
 
-  $logFile = $logDir. '/access_block.log';
+  $logFile = $logDir. '/error.log';
   $entry = [
     'time' => date('c'),
     'reason' => (string)$reason,
