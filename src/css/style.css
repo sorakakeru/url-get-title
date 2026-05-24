@@ -42,13 +42,6 @@ body {
   background-color: var(--bgColor);
 }
 
-hr {
-  margin-block: 2em;
-  border: none;
-  border-top: 1px solid var(--baseColor);
-  height: 0;
-}
-
 
 /**
   * contents
@@ -67,73 +60,87 @@ h1 {
   text-align: center;
 }
 
-dd + dt {
-  margin-top: 1.5em;
+.form_area .error {
+  color: var(--attentionColor);
 }
 
-dd:has(input) {
+.form_area ul.error {
+  margin-bottom: 1em;
+}
+
+.form_area form {
   display: flex;
   align-items: center;
 }
 
-dd input {
-  width: calc(100% - 0.5em - 80px);
+.form_area p {
+  width: calc(100% - 1em - 80px);
 }
 
-dd button {
-  margin-left: 0.5em;
+.form_area .btn_area {
+  margin-left: 1em;
+  width: 80px;
 }
 
-.generate_area {
-  padding: 1em;
-  background-color: var(--grayBgColor);
-  border-radius: 5px;
+.result_area {
+  margin-top: 2em;
+  padding-top: 2em;
+  border-top: 1px solid var(--baseColor);
+}
+
+.result_area > p {
+  margin-bottom: 1.5em;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  line-break: strict;
+}
+
+.result_area dt {
+  font-weight: 700;
+}
+
+.result_area dd + dt {
+  margin-top: 1.5em;
+}
+
+.result_area dd {
   position: relative;
 }
 
-.generate_area p {
+.result_area dd p {
+  padding: 1em;
+  background-color: var(--grayBgColor);
+  border-radius: 5px;
   white-space: nowrap;
   overflow-x: auto;
 }
 
-.generate_area p::-webkit-scrollbar {
+.result_area p::-webkit-scrollbar {
   height: 10px;
   width: 10px;
 }
 
-.generate_area p::-webkit-scrollbar-track {
+.result_area p::-webkit-scrollbar-track {
   background-color: var(--grayColor);
   border-radius: 5px;
 }
 
-.generate_area p::-webkit-scrollbar-thumb {
+.result_area p::-webkit-scrollbar-thumb {
   background-color: var(--baseColor);
   border-radius: 5px;
 }
 
-.generate_area p::-webkit-scrollbar-thumb:hover {
+.result_area p::-webkit-scrollbar-thumb:hover {
   opacity: 0.85;
 }
 
-.generate_area code {
-  font-family: inherit;
-}
-
-.generate_area button {
+.result_area button {
   font-size: 0.85em;
-  width: auto;
+  border-radius: 2.5px;
+  width: fit-content;
   position: absolute;
   top: 0.5em;
   right: 0.5em;
-}
-
-p.error {
-  color: var(--attentionColor);
-}
-
-.form_area p.error {
-  margin-top: 0.5em;
-  font-weight: 700;
 }
 
 

@@ -1,1 +1,4 @@
 .DS_Store
+
+/src/_logs/
+/src/_modules/vendor/
