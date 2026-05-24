@@ -44,6 +44,25 @@ body {
 
 
 /**
+  * link
+  */
+
+a {
+  transition: all 0.3s;
+}
+
+a:link, a:visited {
+  color: var(--primaryColor);
+  text-decoration: underline;
+}
+
+a:hover, a:active {
+  color: var(--baseColor);
+  text-decoration: none;
+}
+
+
+/**
   * contents
   */
 
