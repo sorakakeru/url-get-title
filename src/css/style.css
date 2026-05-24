@@ -4,7 +4,7 @@
   * reset
   */
 
-body, h1, p, dl, dt, dd, form, input, button {
+body, h1, p, dl, dt, dd, ul, form, input, button {
   margin: 0;
   padding: 0;
 }
@@ -65,7 +65,7 @@ h1 {
 }
 
 .form_area ul.error {
-  margin-bottom: 1em;
+  margin: 0 0 1em 1.5em;
 }
 
 .form_area form {
