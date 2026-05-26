@@ -335,7 +335,7 @@ function isBotProtectionPage($responseHeaders, $url = '', $responseBody = '') {
 
   if ($responseBody !== '') {
     $bodyLower = strtolower($responseBody);
-    if (str_contains($bodyLower, 'enqueuetoken=') || str_contains($bodyLower, 'x-queueit-connector') || str_contains($bodyLower, 'document.cookie') && str_contains($bodyLower, 'decodeuricomponent')) return true;
+    if (str_contains($bodyLower, 'enqueuetoken=') || str_contains($bodyLower, 'x-queueit-connector')) return true;
   }
 
   return false;
@@ -346,8 +346,9 @@ function isBotProtectionPage($responseHeaders, $url = '', $responseBody = '') {
  * @param string $curl_url URL
  * @param string $errorCode 失敗理由コード
  */
-function curl_get_contents($curl_url, &$errorCode = '') {
+function curl_get_contents($curl_url, &$errorCode = '', &$charset = '') {
   $errorCode = '';
+  $charset = '';
   $headers = [
     "User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
   ];
@@ -500,6 +501,15 @@ function curl_get_contents($curl_url, &$errorCode = '') {
     if (isBotProtectionPage($responseHeaders, $currentUrl, $responseBody)) {
       $errorCode = 'bot_protection';
       return '';
+    }
+
+    //Content-TypeヘッダーからcharsetをCharset変数に格納
+    $contentTypeValues = $responseHeaders['content-type'] ?? [];
+    if (!empty($contentTypeValues)) {
+      $ctStr = end($contentTypeValues);
+      if ($ctStr !== false && preg_match('/charset\s*=\s*"?([a-zA-Z0-9\-_]+)"?/i', (string)$ctStr, $ctm)) {
+        $charset = trim($ctm[1]);
+      }
     }
 
     return $responseBody;

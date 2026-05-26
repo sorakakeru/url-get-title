@@ -42,6 +42,7 @@ $sendSuccess = false;
 $get_title = '';
 $get_url = '';
 $get_html = '';
+$fetchCharset = '';
 $error = [];
 
 
@@ -80,7 +81,8 @@ if (isset($_POST['send'])) {
 
     if (empty($error)) {
       $fetchErrorCode = '';
-      $get_html = curl_get_contents($get_url, $fetchErrorCode);
+      $fetchCharset = '';
+      $get_html = curl_get_contents($get_url, $fetchErrorCode, $fetchCharset);
       if ($get_html === '') {
         $reasonCode = $fetchErrorCode !== '' ? $fetchErrorCode : 'fetch_failed';
         writeAccessBlockLog($reasonCode, $get_url);
@@ -98,6 +100,30 @@ if (isset($_POST['send'])) {
 
     //エラーがなければタイトル取得処理
     if (empty($error)) {
+      //文字コード検出・UTF-8変換
+      $detectedEncoding = $fetchCharset;
+      if ($detectedEncoding === '') {
+        //Content-Typeヘッダーになければmetaタグから検出
+        if (preg_match('/<meta[^>]+charset\s*=\s*["\']?\s*([a-zA-Z0-9\-_]+)/i', $get_html, $encm)) {
+          $detectedEncoding = $encm[1];
+        } elseif (preg_match('/<meta[^>]+content\s*=\s*["\'][^"\'>]*charset=([a-zA-Z0-9\-_]+)/i', $get_html, $encm)) {
+          $detectedEncoding = $encm[1];
+        }
+      }
+      //UTF-8以外なら変換
+      if ($detectedEncoding !== '' && strtolower(str_replace(['-', '_'], '', $detectedEncoding)) !== 'utf8') {
+        try {
+          $converted = mb_convert_encoding($get_html, 'UTF-8', $detectedEncoding);
+          if ($converted !== false && $converted !== '') {
+            $get_html = $converted;
+            //変換後はcharset宣言を除去（DOMDocumentが元のエンコーディングで再解釈するのを防ぐ）
+            $get_html = preg_replace('/<meta\b[^>]*charset[^>]*>/i', '', $get_html) ?? $get_html;
+          }
+        } catch (\Throwable $e) {
+          //不明なエンコーディング名など変換失敗時は元のHTMLのまま処理（文字化けするが取得は継続）
+        }
+      }
+
       //DOMDocumentでタイトル取得
       $doc = new DOMDocument();
       libxml_use_internal_errors(true); //HTMLパースの警告を抑制
